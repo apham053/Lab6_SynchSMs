@@ -90,6 +90,12 @@ void tick() {
 		else if (A0 && A1) {
 			State = Reset;
 		}
+		else if (A0 && !A1) {
+			State = Add;
+		}
+		else if (!A0 && A1) {
+                        State = Sub;
+                }
 		else { 
 			State = Release;
 		}
@@ -123,7 +129,7 @@ void tick() {
 	case Reset:
 	    C = 0x00;
             break;
-    case Release:
+        case Release:
 		break;
 	default:
 	    break;	    
@@ -135,7 +141,7 @@ int main (void) {
     DDRC = 0xFF;
     PORTA = 0xFF;
     PORTC = 0x00;
-    C = 0x00; 
+    C = 0x07; 
     State = Start;
     TimerSet(100); 
     TimerOn();	    
@@ -143,7 +149,8 @@ int main (void) {
     while(1) {
 	tick();
 	while(!TimerFlag) {}
-	    TimerFlag = 0;	
+	    TimerFlag = 0;
+	    PORTC = C;	
     }	   
     return 1;
 }

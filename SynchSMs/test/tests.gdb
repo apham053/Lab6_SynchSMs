@@ -26,125 +26,163 @@
 echo ======================================================\n
 echo Running all tests..."\n\n
 
-test "PINA 0x00 => PINB = 0x00"
+test "PINA: 0x02 => PORTC: 0x01"
 set State = Start
-setPINA 0x00
-continue 1
-expectPORTB 0x00
-expect State blink1
+setPINA 0x02
+continue 12
+expectPORTC 0x01
 checkResult
 
-test "PINA = 0x00, 0x00 => PINB = 0x01"
+test "PINA: 0x03, 0x03 => PORTC: 0x00, State: Reset"
 set State = Start
-setPINA 0x00
+setPINA 0x03
 continue 1
-setPINA 0x00
+setPINA 0x03
 continue 1
-expectPORTB 0x01
-expect State blink2
+expectPORTC 0x00
+expect State Reset
 checkResult
 
-test "PINA = 0x00, 0x00, 0x01 => PINB = 0x02"
+test "PINA: 0x01, 0x01, 0x01 => PORTC: 0x09"
 set State = Start
-setPINA 0x00
-continue 1
-setPINA 0x00
-continue 1
 setPINA 0x01
-continue 1
-expectPORTB 0x02
-expect State wait
+continue 2
+setPINA 0x01
+continue 2
+setPINA 0x01
+continue 2
+expectPORTC 0x09
 checkResult
 
-test "PINA = 0x00, 0x00, 0x01, 0x00, 0x00, 0x00 => PINB = 0x02"
+test "PINA: 0x03, 0x01, 0x01, 0x01 => PORTC: 0x03"
 set State = Start
-setPINA 0x00
-continue 1
-setPINA 0x00
-continue 1
+setPINA 0x03
+continue 2
 setPINA 0x01
-continue 1
-setPINA 0x00
-continue 1
-setPINA 0x00
-continue 1
-setPINA 0x00
-continue 1
-expectPORTB 0x02
-expect State wait
+continue 2
+setPINA 0x01
+continue 2
+setPINA 0x01
+continue 2
+expectPORTC 0x03
 checkResult
 
-test "PINA = 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01, 0x00 => PINB = 0x01"
+test "PINA: 0x02, 0x02, 0x02 => PORTC: 0x04"
 set State = Start
-setPINA 0x00
-continue 1
-setPINA 0x00
-continue 1
-setPINA 0x01
-continue 1
-setPINA 0x00
-continue 1
-setPINA 0x00
-continue 1
-setPINA 0x00
-continue 1
-setPINA 0x01
-continue 1
-setPINA 0x00
-continue 1
-expectPORTB 0x01
-expect State blink2
+setPINA 0x02
+continue 2
+setPINA 0x02
+continue 2
+setPINA 0x02
+continue 2
+expectPORTC 0x04
 checkResult
 
-test "PINA = 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00 => PINB = 0x02"
+test "PINA: 0x02, 0x02, 0x02, 0x03 => PORTC: 0x00"
 set State = Start
-setPINA 0x00
-continue 1
-setPINA 0x00
-continue 1
-setPINA 0x01
-continue 1
-setPINA 0x00
-continue 1
-setPINA 0x00
-continue 1
-setPINA 0x00
-continue 1
-setPINA 0x01
-continue 1
-setPINA 0x00
-continue 1
-setPINA 0x00
-continue 1
-expectPORTB 0x02
-expect State blink3
+setPINA 0x02
+continue 2
+setPINA 0x02
+continue 2
+setPINA 0x02
+continue 2
+setPINA 0x03
+continue 2
+expectPORTC 0x00
 checkResult
 
-test "PINA = 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00 => PINB = 0x04"
+test "PINA: 0x02, 0x02, 0x02, 0x03, 0x02 => PORTC: 0x00"
 set State = Start
-setPINA 0x00
-continue 1
-setPINA 0x00
-continue 1
-setPINA 0x01
-continue 1
-setPINA 0x00
-continue 1
-setPINA 0x00
-continue 1
-setPINA 0x00
-continue 1
-setPINA 0x01
-continue 1
-setPINA 0x00
-continue 1
-setPINA 0x00
-continue 1
-setPINA 0x00
-continue 1
-expectPORTB 0x04
-expect State blink1
+setPINA 0x02
+continue 2
+setPINA 0x02
+continue 2
+setPINA 0x02
+continue 2
+setPINA 0x03
+continue 2
+setPINA 0x02
+continue 2
+expectPORTC 0x00
 checkResult
+
+test "PINA: 0x02, 0x02, 0x02, 0x03, 0x01 => PORTC: 0x01"
+set State = Start
+setPINA 0x02
+continue 2
+setPINA 0x02
+continue 2
+setPINA 0x02
+continue 2
+setPINA 0x03
+continue 2
+setPINA 0x01
+continue 2
+expectPORTC 0x01
+checkResult
+
+test "PINA: 0x02, 0x02, 0x02, 0x03, 0x00, 0x01, 0x00, 0x01, 0x00, 0x01, 0x00, 0x01 => PORTC: 0x04"
+set State = Start
+setPINA 0x02
+continue 2
+setPINA 0x02
+continue 2
+setPINA 0x02
+continue 2
+setPINA 0x03
+continue 2
+setPINA 0x00
+continue 2
+setPINA 0x01
+continue 2
+setPINA 0x00
+continue 2
+setPINA 0x01
+continue 2
+setPINA 0x00
+continue 2
+setPINA 0x01
+continue 2
+setPINA 0x00
+continue 2
+setPINA 0x01
+continue 2
+expectPORTC 0x04
+checkResult
+
+test "PINA: 0x02, 0x02, 0x02, 0x03, 0x00, 0x01, 0x00, 0x01, 0x00, 0x01, 0x00, 0x01, 0x00, 0x02 => PORTC: 0x03"
+set State = Start
+setPINA 0x02
+continue 2
+setPINA 0x02
+continue 2
+setPINA 0x02
+continue 2
+setPINA 0x03
+continue 2
+setPINA 0x00
+continue 2
+setPINA 0x01
+continue 2
+setPINA 0x00
+continue 2
+setPINA 0x01
+continue 2
+setPINA 0x00
+continue 2
+setPINA 0x01
+continue 2
+setPINA 0x00
+continue 2
+setPINA 0x01
+continue 2
+setPINA 0x00
+continue 2
+setPINA 0x02
+continue 2
+expectPORTC 0x03
+checkResult
+
 
 # Report on how many tests passed/tests ran
 set $passed=$tests-$failed
