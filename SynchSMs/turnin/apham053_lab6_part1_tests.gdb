@@ -29,28 +29,28 @@ echo Running all tests..."\n\n
 test "1 TICK"
 set State = Start
 continue 1
-expectPORTB 0x00
+expectPORTC 0x00
 expect State blink1
 checkResult
 
 test "2 TICKS"
 set State = Start
 continue 2
-expectPORTB 0x01
+expectPORTC 0x01
 expect State blink2
 checkResult
 
 test "3 TICKS"
 set State = Start
 continue 3
-expectPORTB 0x02
+expectPORTC 0x02
 expect State blink3
 checkResult
 
 test "4 TICKS"
 set State = Start
 continue 4
-expectPORTB 0x04
+expectPORTC 0x04
 expect State blink1
 checkResult
 

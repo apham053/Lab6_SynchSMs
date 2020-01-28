@@ -50,24 +50,24 @@ void TimerSet(unsigned long M) {
  
 
     enum States { Start, blink1, blink2, blink3 } State;
-    unsigned char B = 0x00; 
+    unsigned char C = 0x00; 
     
     void tick() {
 	switch(State) {
 	    case Start:
-		B = 0x00;
+		C = 0x00;
 		State = blink1;
 		break;
 	    case blink1:
-		B = 0x01; 
+		C = 0x01; 
 		State = blink2;
 		break;
 	    case blink2:
-		B = 0x02;
+		C = 0x02;
 		State = blink3;
 		break;
 	    case blink3: 
-		B = 0x04;
+		C = 0x04;
 		State = blink1;
 		break;
 	    default: 
@@ -88,13 +88,13 @@ void TimerSet(unsigned long M) {
 		break;
 	}
 	
-	PORTB = B;
+	PORTC = C;
     }
 
 int main (void) {
-    DDRB = 0xFF;
-    PORTB = 0x00;
-    B = 0x00; 
+    DDRC = 0xFF;
+    PORTC = 0x00;
+    C = 0x00; 
     State = Start;
     TimerSet(1000); 
     TimerOn();	    

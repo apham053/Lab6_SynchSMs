@@ -50,25 +50,25 @@ void TimerSet(unsigned long M) {
  
 
     enum States { Start, blink1, blink2, blink3, wait } State;
-    unsigned char B = 0x00; 
+    unsigned char C = 0x00; 
     #define A0 (PINA & 0x01)
     
     void tick() {
 	switch(State) {
 	    case Start:
-		B = 0x00;
+		C = 0x00;
 		State = blink1;
 		break;
 	    case blink1:
-		B = 0x01; 
+		C = 0x01; 
 		State = A0 ? wait : blink2;
 		break;
 	    case blink2:
-		B = 0x02;
+		C = 0x02;
 		State = A0 ? wait : blink3;
 		break;
 	    case blink3: 
-		B = 0x04;
+		C = 0x04;
 		State = A0 ? wait : blink1;
 		break;
 	    case wait:
@@ -94,15 +94,15 @@ void TimerSet(unsigned long M) {
 		break;
 	}
 	
-	PORTB = B;
+	PORTC = C;
     }
 
 int main (void) {
     DDRA = 0x00;
-    DDRB = 0xFF;
+    DDRC = 0xFF;
     PORTA = 0xFF;
-    PORTB = 0x00;
-    B = 0x00; 
+    PORTC = 0x00;
+    C = 0x00; 
     State = Start;
     TimerSet(300); 
     TimerOn();	    
